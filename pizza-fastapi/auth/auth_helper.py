@@ -33,7 +33,7 @@ config = cloudinary.config(
 # print("****1. Set up and configure the SDK:****\nCredentials: ", config.cloud_name, config.api_key, "\n")
 
 
-def uploadImage(image_path,username):
+def upload_image(image_path,username):
     # Upload the image and get its URL
     # ==============================
 
@@ -42,15 +42,15 @@ def uploadImage(image_path,username):
     cloudinary.uploader.upload(image_path,
                                public_id=f"{username}", unique_filename=False, overwrite=True)
 
-    # Build the URL for the image and save it in the variable 'srcURL'
-    srcURL = cloudinary.CloudinaryImage(f"{username}").build_url()
+    # Build the URL for the image and save it in the variable 'src_url'
+    src_url = cloudinary.CloudinaryImage(f"{username}").build_url()
 
     # Log the image URL to the console.
     # Copy this URL in a browser tab to generate the image on the fly.
-    print("****2. Upload an image****\nDelivery URL: ", srcURL, "\n")
+    print("****2. Upload an image****\nDelivery URL: ", src_url, "\n")
 
 
-def getAssetInfo(username):
+def get_asset_info(username):
     # Get and use details of the image
     # ==============================
 
@@ -71,15 +71,15 @@ def getAssetInfo(username):
     return json.dumps(image_info, indent=2)
 
 
-def createImageTag(username):
+def create_image_tag(username):
     # Transform the image
     # ==============================
 
     # Create an image tag with transformations applied to the src URL.
-    imageTag = cloudinary.CloudinaryImage(f"{username}").image(radius="max", effect="sepia")
+    image_tag = cloudinary.CloudinaryImage(f"{username}").image(radius="max", effect="sepia")
 
     # Log the image tag to the console
-    print("****4. Transform the image****\nTransfrmation URL: ", imageTag, "\n")
+    print("****4. Transform the image****\nTransfrmation URL: ", image_tag, "\n")
 
 
 
@@ -94,8 +94,8 @@ class AuthHelper:
 
     @staticmethod
     def get_cloudinary_url_for_image(image_source,username):
-        uploadImage(image_source, username)
-        image_info  = eval(getAssetInfo(username))
+        upload_image(image_source, username)
+        image_info  = eval(get_asset_info(username))
 
         print(f"The image info is {type(image_info)}")
         return image_info['secure_url']
