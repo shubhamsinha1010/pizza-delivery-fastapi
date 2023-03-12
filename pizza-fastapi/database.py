@@ -1,8 +1,13 @@
+import os
+
 from sqlalchemy.orm import declarative_base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from dotenv import load_env
 
-engine=create_engine("postgresql://postgres:postgres@localhost/pizza_delivery",
+load_env()
+
+engine=create_engine(os.environ.get("POSTGRES_URL"),
     echo=True
 )
 

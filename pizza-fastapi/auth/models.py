@@ -1,3 +1,5 @@
+import os
+
 from database import Base
 from sqlalchemy import Column, Integer, Boolean, Text, String
 from sqlalchemy.orm import relationship
@@ -9,8 +11,10 @@ from werkzeug.security import generate_password_hash,check_password_hash
 from fastapi.encoders import jsonable_encoder
 from .auth_helper import AuthHelper
 from fastapi import status, Depends
+from dotenv import load_dotenv
 
 session = Session(bind=engine)
+load_dotenv()
 
 class User(Base):
     """User Model to store the user data"""
@@ -21,7 +25,7 @@ class User(Base):
     password = Column(Text, nullable=True)
     is_staff = Column(Boolean, default=False)
     is_active = Column(Boolean, default=False)
-    profile_pic = Column(String(150),default = "https://res.cloudinary.com/dizlet4ui/image/upload/v1672229070/screenshot_image.jpg")
+    profile_pic = Column(String(150),default = os.environ.get("CLOUDINARY_DEFAULT_IMG_URL"))
     cart=relationship('Cart', backref="user")
 
     @classmethod

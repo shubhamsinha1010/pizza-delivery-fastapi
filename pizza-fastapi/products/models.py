@@ -5,8 +5,10 @@ from cart.models import Cart
 from database import Session, engine
 from .product_helper import ProductHelper
 from fastapi.encoders import jsonable_encoder
+from dotenv import load_env
+import os
 
-
+load_env()
 
 session = Session(bind=engine)
 class Product(Base):
@@ -17,7 +19,7 @@ class Product(Base):
     price = Column(Integer,nullable=False)
     stock_available = Column(Integer,nullable=False)
     toppings = Column(String(60))
-    product_pic = Column(String(150),default = "https://res.cloudinary.com/dizlet4ui/image/upload/v1672229070/screenshot_image.jpg")
+    product_pic = Column(String(150),default = os.environ.get("CLOUDINARY_DEFAULT_IMG_URL"))
     cart=relationship('Cart', backref="product")
 
 

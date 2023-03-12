@@ -1,3 +1,5 @@
+import os
+
 from fastapi import status, Depends
 from fastapi_jwt_auth import AuthJWT
 from fastapi.exceptions import HTTPException
@@ -21,10 +23,10 @@ import json
 # ==============================
 # config = cloudinary.config(secure=True)
 config = cloudinary.config(
-    cloud_name="dizlet4ui",
-    api_key="559853387166627",
-    api_secret="7RVB8MxLajZkHz4ktBXcko2QIj8",
-    secure=True
+    cloud_name=os.environ.get("CLOUDINARY_CLOUD_NAME"),
+    api_key=os.environ.get("CLOUDINARY_API_KEY"),
+    api_secret=os.environ.get("CLOUDINARY_API_SECRET"),
+    secure=os.environ.get("CLOUDINARY_SECURE")
 )
 
 

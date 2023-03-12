@@ -1,4 +1,8 @@
 from pydantic import BaseModel
+from dotenv import load_env
+import os
+
+load_env()
 
 class Settings(BaseModel):
-    authjwt_secret_key: str = 'd2443e85c7a9fa6eff6b6a91f24fb6b4756ca9372a228e42438127466928d031'
+    authjwt_secret_key: str = os.environ.get("JWT_SECRET_KEY")
